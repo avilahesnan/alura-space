@@ -16,8 +16,8 @@ def buscar(request):
     fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True)
 
     if 'buscar' in request.GET:
-        nomeBuscar = request.GET['buscar']
-        if nomeBuscar:
-            fotografias = fotografias.filter(nome__icontains=nomeBuscar)
+        nome_buscar = request.GET['buscar']
+        if nome_buscar:
+            fotografias = fotografias.filter(nome__icontains=nome_buscar)
 
     return render(request, 'galeria/buscar.html', {"cards": fotografias})

@@ -49,7 +49,7 @@ class CadastroForms(forms.Form):
             }
         )
     )
-    senha1 = forms.CharField(
+    senha_1 = forms.CharField(
         label='Senha',
         required=True,
         max_length=70,
@@ -60,7 +60,7 @@ class CadastroForms(forms.Form):
             }
         )
     )
-    senha2 = forms.CharField(
+    senha_2 = forms.CharField(
         label='Confirme sua senha',
         required=True,
         max_length=70,
