@@ -6,8 +6,8 @@ from django.contrib import messages
 
 
 def login(request):
-    form = LoginForms()
-
+    form = LoginForms
+    
     if request.method == 'POST':
         form = LoginForms(request.POST)
 
@@ -20,19 +20,23 @@ def login(request):
             username=nome,
             password=senha
         )
+
         if usuario is not None:
             auth.login(request, usuario)
-            messages.success(request, f'{nome} efetuou o login')
+            messages.success(request, f'{nome} fez o login com sucesso')
+
             return redirect('index')
+        
         else:
-            messages.error(request, 'Erro ao efetuar login!')
+            messages.error(request, 'Erro! Não foi possível fazer login!')
+
             return redirect('login')
 
     return render(request, 'usuarios/login.html', {'form': form})
 
 
 def cadastro(request):
-    form = CadastroForms()
+    form = CadastroForms
 
     if request.method == 'POST':
         form = CadastroForms(request.POST)
@@ -43,7 +47,8 @@ def cadastro(request):
             senha = form['senha_1'].value()
 
             if User.objects.filter(username=nome).exists():
-                messages.error(request, 'Erro! usuário já possui cadastro.')
+                messages.error(request, 'Erro! Usuário já possui cadastro!')
+
                 return redirect('cadastro')
             
             usuario = User.objects.create_user(
@@ -52,7 +57,8 @@ def cadastro(request):
                 password=senha
             )
             usuario.save()
-            messages.success(request, f'{nome} foi cadastrado!')
+            messages.success(request, f'{nome} foi cadastrado com sucesso!')
+
             return redirect('login')
 
     return render(request, 'usuarios/cadastro.html', {'form': form})
@@ -60,5 +66,6 @@ def cadastro(request):
 
 def logout(request):
     auth.logout(request)
-    messages.success(request, 'Logout efetuado com sucesso!')
+    messages.success(request, 'Logout feito com sucesso!')
+
     return redirect('login')
