@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import LoginForms, CadastroForms
+from apps.usuarios.forms import LoginForms, CadastroForms
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
@@ -22,6 +22,7 @@ def login(request):
         )
         if usuario is not None:
             auth.login(request, usuario)
+            messages.success(request, f'{nome} efetuou o login')
             return redirect('index')
         else:
             messages.error(request, 'Erro ao efetuar login!')
