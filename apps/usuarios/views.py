@@ -20,7 +20,7 @@ def login(request):
         if usuario is not None:
             auth.login(request, usuario)
             messages.success(request, f'{nome} fez o login com sucesso')
-            return redirect('index') 
+            return redirect('index')
         else:
             messages.error(request, 'Erro! Não foi possível fazer login!')
             return redirect('login')
@@ -39,7 +39,7 @@ def cadastro(request):
             if User.objects.filter(username=nome).exists():
                 messages.error(request, 'Erro! Usuário já possui cadastro!')
                 return redirect('cadastro')
-            
+
             usuario = User.objects.create_user(
                 username=nome,
                 email=email,

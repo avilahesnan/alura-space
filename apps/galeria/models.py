@@ -14,7 +14,7 @@ class Fotografia(models.Model):
 
     nome = models.CharField(max_length=100, null=False, blank=False)
     legenda = models.CharField(max_length=150, null=False, blank=False)
-    categoria = models.CharField(max_length=100, choices=OPCAO_CATEGORIA, default='')
+    categoria = models.CharField(max_length=100, choices=OPCAO_CATEGORIA, default='NEBULOSA')  # noqa: E501
     descricao = models.TextField(null=False, blank=False)
     foto = models.ImageField(upload_to="fotos/%Y/%m/%d/", blank=True)
     publicado = models.BooleanField(default=True)
@@ -26,7 +26,6 @@ class Fotografia(models.Model):
         blank=False,
         related_name='user'
     )
-
 
     def __str__(self):
         return self.nome

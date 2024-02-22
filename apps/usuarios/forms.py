@@ -77,12 +77,12 @@ class CadastroForms(forms.Form):
 
         if nome:
             nome = nome.strip()
-            
+
             if ' ' in nome:
-                raise forms.ValidationError('Espaços não são permitidos nesse campo!')
+                raise forms.ValidationError('Espaços não são permitidos nesse campo!')  # noqa: E501
             else:
                 return nome
-            
+
     def clean_senha_2(self):
         senha_1 = self.cleaned_data.get('senha_1')
         senha_2 = self.cleaned_data.get('senha_2')

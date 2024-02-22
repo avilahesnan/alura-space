@@ -9,7 +9,7 @@ def index(request):
         messages.error(request, 'Nenhuma usuário está logado!')
         return redirect('login')
 
-    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True)
+    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True)  # noqa: E501
     return render(request, 'galeria/index.html', {"cards": fotografias})
 
 
@@ -22,8 +22,8 @@ def buscar(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Nenhuma usuário está logado!')
         return redirect('login')
-    
-    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True)
+
+    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True)  # noqa: E501
     if 'buscar' in request.GET:
         nome_buscar = request.GET['buscar']
         if nome_buscar:
@@ -36,7 +36,7 @@ def nova_imagem(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Nenhuma usuário está logado!')
         return redirect('login')
-    
+
     form = FotografiaForms
     if request.method == 'POST':
         form = FotografiaForms(request.POST, request.FILES)
@@ -52,17 +52,17 @@ def editar_imagem(request, id):
     if not request.user.is_authenticated:
         messages.error(request, 'Nenhuma usuário está logado!')
         return redirect('login')
-    
+
     fotografia = Fotografia.objects.get(id=id)
     form = FotografiaForms(instance=fotografia)
     if request.method == 'POST':
-        form = FotografiaForms(request.POST, request.FILES, instance=fotografia)
+        form = FotografiaForms(request.POST, request.FILES, instance=fotografia)  # noqa: E501
         if form.is_valid():
             form.save()
             messages.success(request, 'Fotografia editada com sucesso!')
             return redirect('index')
 
-    return render(request, 'galeria/editar_imagem.html', {"form": form, "id": id})
+    return render(request, 'galeria/editar_imagem.html', {"form": form, "id": id})  # noqa: E501
 
 
 def deletar_imagem(request, id):
@@ -73,5 +73,5 @@ def deletar_imagem(request, id):
 
 
 def filtro(request, categoria):
-    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True, categoria=categoria)
+    fotografias = Fotografia.objects.order_by("data_fotografia").filter(publicado=True, categoria=categoria)  # noqa: E501
     return render(request, 'galeria/index.html', {"cards": fotografias})
